@@ -1,0 +1,31 @@
+pipeline {
+    
+    agent any
+    
+    stages {
+        
+        stage ('SCM'){
+            
+            steps {
+                
+                println 'Declarative checkout'
+            }
+        }
+        
+        stage ('Build'){
+            
+            steps {
+                
+                println 'Build stage'
+            }
+        }
+        
+        stage ('Test'){
+            
+            steps {
+                
+                println 'Testing success'
+            }
+        }
+    }
+}
