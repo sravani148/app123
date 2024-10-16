@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    environment {
+        RELEASE = '1.1'
+    }
+    stages {
+        stage ('Build'){
+            environment {
+                LOG_LEVEL='INFO'
+            }
+            parallel {
+                stage ('Sonar'){
+                    steps {
+                        echo "Sonar scan completed for Release ${RELEASE} with log level ${LOG_LEVEL}... "
+                    }
+                }
+                stage ('Fortify'){
+                    steps {
+                        echo "Fortify scan completed for Release ${RELEASE} with log level ${LOG_LEVEL}... "
+                    }
+                }
+                stage ('NexusIQ'){
+                    steps {
+                        echo "Fortify scan completed for Release ${RELEASE} with log level ${LOG_LEVEL}... "
+                    }
+                }
+            }
+        }
+        stage ('Test'){
+            steps {
+                echo "Testing release ${RELEASE}"
+            }
+        }
+        stage ('Deploy'){
+            input {
+                message 'Deploy?'
+                ok 'Approve'
+                parameters {
+                    string (name: 'TARGET_ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environment')
+                }
+            }
+            steps{
+                echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
+            }
+        }
+    }
+    post{
+        always {
+            echo 'prints whether deploy happened or not'
+        }
+    }
+}
