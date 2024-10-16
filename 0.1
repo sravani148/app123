@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    environment {
+        RELEASE= '0.1'
+    }
+    stages {
+        stage ('Build'){
+            agent any
+            environment {
+                ENVIRONMENT='DEV'
+            }
+            steps {
+                echo "Building release ${RELEASE} with ${ENVIRONMENT} environment "
+            }
+        }
+        stage ('Test'){
+            steps {
+                echo "Testing. I can see release ${RELEASE} with ${ENVIRONMENT} environment"
+            }
+        }
+    }
+    
+}
