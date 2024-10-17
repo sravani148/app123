@@ -8,9 +8,6 @@ pipeline {
             agent any
             environment {
                 ENVIRONMENT='DEV'
-                steps {
-                   println  ("Env: $ENVIRONMENT")  
-                }
             }
             steps {
                 echo "Building release ${RELEASE} with ${ENVIRONMENT} environment "
@@ -18,7 +15,7 @@ pipeline {
         }
         stage ('Test'){
             steps {
-                println  ("Env: $ENVIRONMENT")  
+                echo  ("Env: ${ENVIRONMENT}")  
                 echo "Testing. I can see release ${RELEASE} with ${ENVIRONMENT} environment"
             }
         }
